@@ -31,21 +31,21 @@ export class NavBarComponent implements OnInit {
                 ]
             },
             {
-                label: 'Listado',
+                label: 'Resultados',
                 icon: 'fa-trophy',
                 items: [
                     {label: 'Este juego'},
                     {label: 'Todos los juegos'}
                 ]
-            },
-            {
+            }
+            /*,{
                 label: 'Acerca de',
                 icon: 'fa-info-circle',
                 items: [
                     {label: 'Mi Github', icon: 'fa-github'},
                     {label: 'Quien soy', icon: 'fa-user'}
                 ]
-            }
+            }*/
         ];
     }
 
