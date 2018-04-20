@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 body{
     background: url(./assets/imagenes/game_BG.png) repeat scroll;
-    background-size: 15%;
+    background-size: 25%;
+    
 }
 
 div.solid{
