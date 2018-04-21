@@ -1,7 +1,10 @@
+<button *ngIf="!elUsuario" (click)="mostrar()">Log In</button>
 <!--The content below is only a placeholder and can be replaced.-->
-<div>
-  <app-nav-bar></app-nav-bar>
-</div>
-<div class="solid ui-grid">
-  <router-outlet></router-outlet>
+<div *ngIf="elUsuario">
+  <div>
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <div class="contenido ui-grid">
+    <router-outlet></router-outlet>
+  </div>
 </div>
