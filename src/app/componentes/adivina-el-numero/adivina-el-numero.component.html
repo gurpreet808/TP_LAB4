@@ -1,31 +1,21 @@
-<div class="container" style="text-align:center">
-  <h2>{{nuevoJuego.nombre}}!</h2>
+<div class="" style="text-align:center">
+  <h1>{{nuevoJuego.nombre}}!</h1>
 </div>
+
+<div *ngIf="contador > -1">
+  <h2>Ingresá el número:</h2>
+  <input [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
+  <button (click)="verificar()">Verificar</button>
+</div>
+
+<div *ngIf="nuevaPartida">
+  <button (click)="generarNumero()">Nuevo Juego</button>
+</div>
+
 <div>
-  <form name="juego">
-    <div *ngIf="nuevoJuego.numeroSecreto!=0">
-      <label>Ingrese un número: </label>
-      <input [(ngModel)]="nuevoJuego.numeroIngresado" placeholder="ingrese numero" name="numeroIngresado" type="number" class="" style="width:50%"/>
-      
-      <h2 [hidden]="ocultarVerificar">
-        <button *ngIf="nuevoJuego.numeroSecreto!=0" (click)="verificar()" class="btn btn-success btn-lg">Verificar</button>
-      </h2>
-    </div>
-    
-    <h2>
-      <button *ngIf="nuevoJuego.numeroSecreto==0 " (click)="generarNumero()"  class="btn btn-info btn-lg">Nuevo número secreto</button>
-    </h2>
-    
-    <h2>
-      <p *ngIf="nuevoJuego.numeroSecreto!=0" >
-        <i class="fa fa-spinner fa-spin"></i>Esperando que ingrese un número
-      </p>
-    </h2>
-    
-    <h3 [hidden]="!nuevoJuego.gano">Usted adivinó el número!!</h3>
-    <h3 [hidden]="nuevoJuego.gano">Usted aún no ganó</h3>
-    
-  </form>
-  <div id="snackbar">{{mensajes}}</div>
-  
+  {{mensajes}}
+</div>
+
+<div>
+  {{ayudas}}
 </div>

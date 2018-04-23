@@ -10,28 +10,29 @@ import { Adivina } from '../../clases/adivina';
 export class AdivinaElNumeroComponent implements OnInit {  
   nuevoJuego:Adivina;
   mensajes:string;
-  contador:number = 0;
-  ocultarVerificar:boolean;
+  contador:number = -1;
+  nuevaPartida:boolean = true;
+  ayudas:string;
   
   constructor() { 
     this.nuevoJuego = new Adivina();
-    this.ocultarVerificar=false;
   }
   
   generarNumero() {
     this.nuevoJuego.generarNumero();
-    this.contador=0;
+    this.nuevoJuego.numeroIngresado = 0;
+    this.contador = 0;
+    this.nuevaPartida = false;
   }
   
   verificar() {
     this.contador++;
-    this.ocultarVerificar=true;
-    console.info("numero Secreto:",this.nuevoJuego.gano);
 
     if (this.nuevoJuego.verificar()) {
-      this.MostarMensaje("Sos un Genio!!! Lo adivinaste.",true);
-      this.nuevoJuego.numeroSecreto=0;
-
+      this.mensajes = "Sos un Genio!!! Lo adivinaste."
+      this.ayudas = "";
+      //console.log("Sos un Genio!!! Lo adivinaste.");
+      this.nuevaPartida = true;
     } else {
 
       let mensaje:string;
@@ -64,29 +65,13 @@ export class AdivinaElNumeroComponent implements OnInit {
           mensaje="Ya le erraste "+ this.contador+" veces.";
         break;
       }
-
-      this.MostarMensaje("#"+this.contador+" "+mensaje+" Ayuda: "+this.nuevoJuego.retornarAyuda());
+      this.mensajes = "#"+this.contador+" "+mensaje;
+      this.ayudas = "Ayuda: "+this.nuevoJuego.retornarAyuda();
+      //console.log("#"+this.contador+" "+mensaje+" Ayuda: "+this.nuevoJuego.retornarAyuda());
     }
-    console.info("numero Secreto:",this.nuevoJuego.gano);  
-  }  
-  
-  MostarMensaje(mensaje:string="este es el mensaje",ganador:boolean=false) {
-    this.mensajes=mensaje;    
-    var x = document.getElementById("snackbar");
-    if(ganador)
-    {
-      x.className = "show Ganador";
-    }else{
-      x.className = "show Perdedor";
-    }
-    var modelo=this;
-    setTimeout(function(){ 
-      x.className = x.className.replace("show", "");
-      modelo.ocultarVerificar=false;
-    }, 3000);
-    console.info("objeto",x);  
-  }
+  } 
   
   ngOnInit() {
   } 
+  
 }
