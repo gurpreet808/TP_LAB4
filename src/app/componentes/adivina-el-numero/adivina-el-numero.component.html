@@ -1,21 +1,23 @@
-<div class="" style="text-align:center">
-  <h1>{{nuevoJuego.nombre}}!</h1>
-</div>
-
-<div *ngIf="contador > -1">
-  <h2>Ingresá el número:</h2>
-  <input [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
-  <button (click)="verificar()">Verificar</button>
-</div>
-
-<div *ngIf="nuevaPartida">
-  <button (click)="generarNumero()">Nuevo Juego</button>
-</div>
-
-<div>
-  {{mensajes}}
-</div>
-
-<div>
-  {{ayudas}}
+<div style="text-align: center">  
+  <div id="tituloJuego">
+    <h1>{{nuevoJuego.nombre}}!</h1>
+  </div>
+  
+  <div *ngIf="contador > -1">
+    <h2>Ingresá el número:</h2>
+    <input [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
+    <button (click)="verificar()">Verificar</button>
+  </div>
+  
+  <div *ngIf="nuevaPartida">
+    <button (click)="generarNumero()">Nuevo Juego</button>
+  </div>
+  
+  <div id="msj" *ngIf="mensajes">
+    {{mensajes}}
+  </div>
+  
+  <div id="ayudante" *ngIf="ayudas" class="unaAnimacion">
+    {{ayudas}}
+  </div>
 </div>

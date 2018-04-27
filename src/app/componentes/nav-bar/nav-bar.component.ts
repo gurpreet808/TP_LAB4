@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import {MenuItem} from 'primeng/api';
 
 @Component({
@@ -8,7 +9,7 @@ import {MenuItem} from 'primeng/api';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  constructor( private router: Router ) { }
 
   items: MenuItem[];
 
@@ -17,7 +18,9 @@ export class NavBarComponent implements OnInit {
             {
                 label: 'Inicio',
                 icon: 'fa-home', 
-                routerLink:"/"
+                command: e => {
+                    this.router.navigateByUrl("/");
+                }
             },
             {
                 label: 'Juegos',

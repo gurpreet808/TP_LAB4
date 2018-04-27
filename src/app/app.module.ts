@@ -19,35 +19,14 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { Error404Component } from './componentes/error404/error404.component';
 import { UsuarioBtnComponent } from './componentes/usuario-btn/usuario-btn.component';
 
-const config = [
-  {
-    path:"tateti",
-    component: TatetiComponent
-  },
-  {
-    path:"anagrama",
-    component: AnagramaComponent
-  },
-  {
-    path:"piedrapapeltijera",
-    component: PiedraPapelTijeraComponent
-  },
-  {
-    path:"agilidad",
-    component: AgilidadAritmeticaComponent
-  },
-  {
-    path:"adivina",
-    component: AdivinaElNumeroComponent
-  },
-  {
-    path:"",
-    component: InicioComponent
-  },
-  {
-    path:"**",
-    component: Error404Component
-  }
+const appRoutes = [
+  { path:"", component: InicioComponent },
+  { path:"tateti", component: TatetiComponent },
+  { path:"anagrama", component: AnagramaComponent },
+  { path:"piedrapapeltijera", component: PiedraPapelTijeraComponent },
+  { path:"agilidad", component: AgilidadAritmeticaComponent },
+  { path:"adivina", component: AdivinaElNumeroComponent },
+  { path:"**", component: Error404Component }
 ]
 
 @NgModule({
@@ -70,7 +49,7 @@ const config = [
     SplitButtonModule,
     FormsModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(config)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
