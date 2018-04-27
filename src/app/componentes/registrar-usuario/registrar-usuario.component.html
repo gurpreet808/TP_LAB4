@@ -1,0 +1,118 @@
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+  <p-panel header="Registrar usuario">
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Nombre *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="text" formControlName="nombre" placeholder="Requerido"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['nombre'].valid&&userform.controls['nombre'].dirty">
+                      <i class="fa fa-close"></i>
+                      Tiene que indicar su nombre
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Apellido *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="text" formControlName="apellido" placeholder="Requerido"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['apellido'].valid&&userform.controls['apellido'].dirty">
+                      <i class="fa fa-close"></i>
+                      Tiene que indicar su apellido
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Nombre de Usuario *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="text" formControlName="nombreUsuario" placeholder="Requerido"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['nombreUsuario'].valid&&userform.controls['nombreUsuario'].dirty">
+                      <i class="fa fa-close"></i>
+                      Tiene que indicar su Nombre de Usuario
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  E-Mail *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="text" formControlName="email" placeholder="Requerido"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
+                      <i class="fa fa-close"></i>
+                      Tiene que indicar su E-Mail
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Constraseña *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="password" formControlName="contraseña" placeholder="Requerido - Min(6)"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['contraseña'].valid&&userform.controls['contraseña'].dirty">
+                      <i class="fa fa-close"></i>
+                      <span *ngIf="userform.controls['contraseña'].errors['required']">Tiene que indicar su contraseña</span>
+                      <span *ngIf="userform.controls['contraseña'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Confirmar constraseña *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <input pInputText type="password" formControlName="contraseña2" placeholder="Requerido - Min(6)"/>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['contraseña2'].valid&&userform.controls['contraseña2'].dirty">
+                      <i class="fa fa-close"></i>
+                      <span *ngIf="userform.controls['contraseña2'].errors['required']">Tiene que confirmar su contraseña</span>
+                      <span *ngIf="userform.controls['contraseña2'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2">
+                  Sexo *:
+              </div>
+              <div class="ui-grid-col-6">
+                  <p-dropdown [options]="sexos" formControlName="sexo" [autoWidth]="false"></p-dropdown>
+              </div>
+              <div class="ui-grid-col-4">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['sexo'].valid&&userform.controls['sexo'].dirty">
+                      <i class="fa fa-close"></i>
+                      Tiene que indicar su sexo
+                  </div>
+              </div>
+          </div>
+          <div class="ui-grid-row">
+              <div class="ui-grid-col-2"></div>
+              <div class="ui-grid-col-6">
+                  <button pButton type="submit" label="Registrar" [disabled]="!userform.valid"></button>
+              </div>
+              <div class="ui-grid-col-4"></div>
+          </div>
+          <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+              Formulario enviado
+              <br>
+              {{diagnostic}}
+          </div>
+      </div>
+  </p-panel>
+</form>
