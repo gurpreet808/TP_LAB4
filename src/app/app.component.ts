@@ -8,10 +8,17 @@ import { Usuario } from "./clases/usuario";
 })
 export class AppComponent {
   title = 'app';
-  //elUsuario:Usuario;
-  elUsuario:Usuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com", "diego");
+  elUsuario:Usuario;
+  //elUsuario:Usuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
+  logueado:boolean;
 
   mostrar(){
-    this.elUsuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com", "diego");
+    this.elUsuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
+  }
+
+  cargarUsuario(usuario){
+    this.elUsuario = new Usuario();
+    this.elUsuario.nombreUsuario = usuario.nombreUsuario;
+    //this.elUsuario.contraseña = usuario.contraseña;
   }
 }

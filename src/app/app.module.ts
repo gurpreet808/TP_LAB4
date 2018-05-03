@@ -24,6 +24,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { Error404Component } from './componentes/error404/error404.component';
 import { UsuarioBtnComponent } from './componentes/usuario-btn/usuario-btn.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
+import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
 
 //#endregion
 
@@ -49,7 +50,8 @@ const appRoutes = [
     InicioComponent,
     Error404Component,
     UsuarioBtnComponent,
-    RegistrarUsuarioComponent
+    RegistrarUsuarioComponent,
+    IniciarSesionComponent
   ],
   imports: [
     BrowserModule,

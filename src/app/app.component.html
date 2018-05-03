@@ -1,4 +1,10 @@
-<button *ngIf="!elUsuario" (click)="mostrar()">Log In</button>
+<div *ngIf="!elUsuario">
+  <!-- <button (click)="mostrar()">Log In</button> -->
+  <app-iniciar-sesion (logueado)="mostrar($event)"></app-iniciar-sesion>
+</div>
+
+
+
 <!--The content below is only a placeholder and can be replaced.-->
 <div *ngIf="elUsuario">
   <div>
