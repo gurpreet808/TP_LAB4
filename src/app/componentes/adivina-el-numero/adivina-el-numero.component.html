@@ -5,12 +5,12 @@
   
   <div *ngIf="contador > -1">
     <h2>Ingresá el número:</h2>
-    <input [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
-    <button (click)="verificar()">Verificar</button>
+    <input pInputText [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
+    <button pButton (click)="verificar()" label="Verificar"></button>
   </div>
   
   <div *ngIf="nuevaPartida">
-    <button (click)="generarNumero()">Nuevo Juego</button>
+    <button pButton (click)="generarNumero()" label="Nuevo Juego"></button>
   </div>
   
   <div id="msj" *ngIf="mensajes">

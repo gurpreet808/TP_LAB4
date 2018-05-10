@@ -1,3 +1,19 @@
-<p>
-  piedra-papel-tijera works!
-</p>
+<div id="tituloJuego">
+  <h1>{{nuevoJuego.nombre}}!</h1>
+</div>
+<h3>Yo:</h3>
+<div>
+  <input pInputText [(ngModel)]="this.nuevoJuego.elementoIngresado" type="text" name="" id="">
+</div>
+<br>
+<h3>Maquina:</h3>
+<div>
+  {{nuevoJuego.elementos[nuevoJuego.elementoSecreto]}}
+</div>
+<br>
+<div>
+  {{mensajes}}
+</div>
+<br>
+<button pButton (click)="empezar()" label="Nuevo Juego"></button>
+<button pButton (click)="jugar()" label="Jugar"></button>

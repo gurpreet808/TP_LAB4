@@ -38,7 +38,7 @@ export class AdivinaElNumeroComponent implements OnInit {
       let mensaje:string;
       switch (this.contador) {
         case 1:
-          mensaje="No, le pifiaste, animo.";
+          mensaje="No, le erraste, ánimo.";
         break;
 
         case 2:
@@ -46,7 +46,7 @@ export class AdivinaElNumeroComponent implements OnInit {
         break;
         
         case 3:
-          mensaje="No es. Yo crei que la tercera era la vencida.";
+          mensaje="No es. Yo creía que la tercera era la vencida.";
         break;
         
         case 4:
@@ -54,7 +54,7 @@ export class AdivinaElNumeroComponent implements OnInit {
         break;
         
         case 5:
-          mensaje=" intentos y nada.";
+          mensaje=" intentos y nada...";
         break;
         
         case 6:
