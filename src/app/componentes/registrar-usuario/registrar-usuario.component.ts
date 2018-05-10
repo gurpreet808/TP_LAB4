@@ -26,8 +26,8 @@ export class RegistrarUsuarioComponent implements OnInit {
       'apellido': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
       'nombreUsuario': new FormControl('', Validators.required),
-      'contraseña': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      'contraseña2': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+      'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+      'clave2': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       'descripcion': new FormControl(''),
       'sexo': new FormControl('', Validators.required)
     });

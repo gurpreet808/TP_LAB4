@@ -59,31 +59,31 @@
           </div>
           <div class="ui-grid-row">
               <div class="ui-grid-col-2">
-                  Constraseña *:
+                  Clave *:
               </div>
               <div class="ui-grid-col-6">
-                  <input pInputText type="password" formControlName="contraseña" placeholder="Requerido - Min(6)"/>
+                  <input pInputText type="password" formControlName="clave" placeholder="Requerido - Min(6)"/>
               </div>
               <div class="ui-grid-col-4">
-                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['contraseña'].valid&&userform.controls['contraseña'].dirty">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave'].valid&&userform.controls['clave'].dirty">
                       <i class="fa fa-close"></i>
-                      <span *ngIf="userform.controls['contraseña'].errors['required']">Tiene que indicar su contraseña</span>
-                      <span *ngIf="userform.controls['contraseña'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
+                      <span *ngIf="userform.controls['clave'].errors['required']">Tiene que indicar cuál será su clave</span>
+                      <span *ngIf="userform.controls['clave'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
                   </div>
               </div>
           </div>
           <div class="ui-grid-row">
               <div class="ui-grid-col-2">
-                  Confirmar constraseña *:
+                  Confirmarconstraseña *:
               </div>
               <div class="ui-grid-col-6">
-                  <input pInputText type="password" formControlName="contraseña2" placeholder="Requerido - Min(6)"/>
+                  <input pInputText type="password" formControlName="clave2" placeholder="Requerido - Min(6)"/>
               </div>
               <div class="ui-grid-col-4">
-                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['contraseña2'].valid&&userform.controls['contraseña2'].dirty">
+                  <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave2'].valid&&userform.controls['clave2'].dirty">
                       <i class="fa fa-close"></i>
-                      <span *ngIf="userform.controls['contraseña2'].errors['required']">Tiene que confirmar su contraseña</span>
-                      <span *ngIf="userform.controls['contraseña2'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
+                      <span *ngIf="userform.controls['clave2'].errors['required']">Tiene que confirmar cuál será su clave</span>
+                      <span *ngIf="userform.controls['clave2'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
                   </div>
               </div>
           </div>

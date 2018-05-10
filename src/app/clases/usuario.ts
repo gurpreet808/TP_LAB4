@@ -5,10 +5,10 @@ export class Usuario {
     public sexo:string;
     public nombreUsuario:string;
     public email:string;
-    private contraseña:string;
+    private clave:string;
     public fechaRegistro:string;
 
-    constructor(nombreParam?:string, apellidoParam?:string, sexoParam?:string, nombreUsuarioParam?:string, emailParam?:string, contraseñaParam?:string, fechaRegistroParam?:string){
+    constructor(nombreParam?:string, apellidoParam?:string, sexoParam?:string, nombreUsuarioParam?:string, emailParam?:string, claveParam?:string, fechaRegistroParam?:string){
         if (nombreParam) {
             this.nombre = nombreParam;            
         }
@@ -24,8 +24,8 @@ export class Usuario {
         if (emailParam) {
             this.email = emailParam;            
         }
-        if (contraseñaParam) {
-            this.contraseña = contraseñaParam;            
+        if (claveParam) {
+            this.clave = claveParam;            
         }
     }
 }

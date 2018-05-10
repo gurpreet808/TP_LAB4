@@ -19,7 +19,7 @@ export class IniciarSesionComponent implements OnInit {
   ngOnInit() {
     this.userform = this.fb.group({
       'nombreUsuario': new FormControl('', Validators.required),
-      'contraseña': new FormControl('', Validators.compose([Validators.required])),
+      'clave': new FormControl('', Validators.compose([Validators.required])),
     });
   }
   
