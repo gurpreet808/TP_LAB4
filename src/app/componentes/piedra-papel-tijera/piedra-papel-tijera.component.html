@@ -1,19 +1,32 @@
-<div id="tituloJuego">
-  <h1>{{nuevoJuego.nombre}}!</h1>
+<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px; text-align: center">
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-12" id="tituloJuego">
+      <h1>{{nuevoJuego.nombre}}!</h1>
+    </div>
+  </div>
+
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-6">
+      <h2>Yo:</h2>
+      <div>
+        <img (click)="jugar(0)" src="./assets/imagenes/piedra.png" alt="" width=130>
+        <img (click)="jugar(1)" src="./assets/imagenes/papel.png" alt="" width=130>
+        <img (click)="jugar(2)" src="./assets/imagenes/tijera.png" alt="" width=130>
+      </div>
+    </div>
+    <div class="ui-grid-col-6">
+      <h2>Maquina:</h2>
+      <div [ngSwitch]="nuevoJuego.elementoSecreto">
+        <img *ngSwitchCase="0" src="./assets/imagenes/piedra.png" alt="" width=130>
+        <img *ngSwitchCase="1" src="./assets/imagenes/papel.png" alt="" width=130>
+        <img *ngSwitchCase="2" src="./assets/imagenes/tijera.png" alt="" width=130>
+      </div>
+      <br>
+    </div>
+  </div>
+  <div class="ui-grid-row">
+      <div class="ui-grid-col-12">
+        <h3>{{mensajes}}</h3>
+      </div>
+  </div>
 </div>
-<h3>Yo:</h3>
-<div>
-  <input pInputText [(ngModel)]="this.nuevoJuego.elementoIngresado" type="text" name="" id="">
-</div>
-<br>
-<h3>Maquina:</h3>
-<div>
-  {{nuevoJuego.elementos[nuevoJuego.elementoSecreto]}}
-</div>
-<br>
-<div>
-  {{mensajes}}
-</div>
-<br>
-<button pButton (click)="empezar()" label="Nuevo Juego"></button>
-<button pButton (click)="jugar()" label="Jugar"></button>

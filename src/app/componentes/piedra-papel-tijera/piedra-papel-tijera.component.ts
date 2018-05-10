@@ -19,10 +19,13 @@ export class PiedraPapelTijeraComponent implements OnInit {
     this.nuevoJuego.nuevoJuego();
   }
 
-  jugar(){
+  jugar(elemento){
+    this.nuevoJuego.elementoIngresado = elemento;
+    this.empezar();
+    
     switch (this.nuevoJuego.jugar()) {
       case "gano":
-        this.mensajes = "Ganaste"
+        this.mensajes = "Ganaste!"
         break;
       case "perdio":
         this.mensajes = "Perdiste"

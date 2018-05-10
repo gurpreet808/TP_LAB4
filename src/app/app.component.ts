@@ -8,8 +8,8 @@ import { Usuario } from "./clases/usuario";
 })
 export class AppComponent {
   title = 'app';
-  elUsuario:Usuario;
-  //elUsuario:Usuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
+  //elUsuario:Usuario;
+  elUsuario:Usuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
   logueado:boolean;
 
   mostrar(){

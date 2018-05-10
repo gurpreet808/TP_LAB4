@@ -13,18 +13,24 @@ export class PiedraPapelTijera extends Juego {
         if (this.elementoIngresado == 0) {
             if (this.elementoSecreto == 2) {
                 this.gano = true;
+            } else {
+                this.gano = false;
             }
         }
 
         if (this.elementoIngresado == 1) {
             if (this.elementoSecreto == 0) {
                 this.gano = true;
+            } else {
+                this.gano = false;
             }
         }
 
         if (this.elementoIngresado == 2) {
             if (this.elementoSecreto == 1) {
                 this.gano = true;
+            } else {
+                this.gano = false;
             }
         }
 
