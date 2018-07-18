@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from "@angular/common/http";
 
 import {MenubarModule} from 'primeng/menubar';
 import {ButtonModule} from 'primeng/button';
@@ -11,6 +12,9 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {DropdownModule} from 'primeng/primeng';
 import {PanelModule} from 'primeng/panel';
 import {InputTextModule} from 'primeng/inputtext';
+
+import { MiHttpService } from "./servicios/mi-http.service";
+import { UsuarioService } from "./servicios/usuario.service";
 
 //#region Mis componentes
 import { AppComponent } from './app.component';
@@ -25,16 +29,19 @@ import { Error404Component } from './componentes/error404/error404.component';
 import { UsuarioBtnComponent } from './componentes/usuario-btn/usuario-btn.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
 import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
+import { AuthGuard } from './servicios/auth.guard';
 
 //#endregion
 
 const appRoutes = [
   { path:"", component: InicioComponent },
-  { path:"tateti", component: TatetiComponent },
-  { path:"anagrama", component: AnagramaComponent },
-  { path:"piedrapapeltijera", component: PiedraPapelTijeraComponent },
-  { path:"agilidad", component: AgilidadAritmeticaComponent },
-  { path:"adivina", component: AdivinaElNumeroComponent },
+  { path:"login", component: IniciarSesionComponent },
+  { path:"registrarme", component: RegistrarUsuarioComponent },
+  { path:"tateti", component: TatetiComponent, canActivate: [AuthGuard]},
+  { path:"anagrama", component: AnagramaComponent, canActivate: [AuthGuard]},
+  { path:"piedrapapeltijera", component: PiedraPapelTijeraComponent, canActivate: [AuthGuard]},
+  { path:"agilidad", component: AgilidadAritmeticaComponent, canActivate: [AuthGuard]},
+  { path:"adivina", component: AdivinaElNumeroComponent, canActivate: [AuthGuard]},
   { path:"**", component: Error404Component }
 ]
 
@@ -55,6 +62,7 @@ const appRoutes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -66,7 +74,11 @@ const appRoutes = [
     InputTextModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    MiHttpService,
+    UsuarioService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

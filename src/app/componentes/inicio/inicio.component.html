@@ -1,5 +1,8 @@
-<p>
-  inicio works!
-</p>
-<br>
-<app-registrar-usuario></app-registrar-usuario>
+<h1>Sala de Juegos</h1>
+
+<div >
+  <h3>Debe iniciar sesión con su cuenta para poder jugar.</h3>
+  <button pButton type="button" label="Iniciar sesión" (click)='navegar("login")'></button>
+  <h3>Si no posee una cuenta puede registrarse con el siguiente enlace</h3>
+  <button pButton type="button" label="Registrarme" class="ui-button-info" (click)='navegar("registrarme")'></button>
+</div>

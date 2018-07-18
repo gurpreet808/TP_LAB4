@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import { Http, Response } from "@angular/http";
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+    //'Authorization': 'my-auth-token'
+  })
+};
 
 @Injectable()
 export class MiHttpService {
 
-  constructor(public http: Http) { }
+  constructor(public _miHttp:HttpClient) { }
 
-  public httpGet (url: string): Observable<Response> {
-    return this.http.get(url)
-      .map( (res: Response) => res.json())
-      .catch( (err: any) => Observable.throw(err.json().error || 'Server error'));
+  urlServidor = 'http://localhost/apiParcial';
+  
+  GET(path: string): Observable<any>{
+    return this._miHttp.get(this.urlServidor+path);
   }
 
-  private extractData (res: Response) {
-    return res.json() || {};
+  POST (path: string, objParam: any): Observable<any> {
+    return this._miHttp.post<any>(this.urlServidor+path, objParam, httpOptions);
   }
 
-  private handleError (error: Response | any) {
-    return error;
+  HeadersPOST (path: string, objParam: any): Observable<any> {
+    return this._miHttp.post<any>(this.urlServidor+path, objParam, {observe: "response"});
   }
-
 }

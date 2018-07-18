@@ -30,6 +30,7 @@ export class NavBarComponent implements OnInit {
                     {label: 'Agilidad', routerLink:"/agilidad"},
                     {label: 'Piedra, Papel o Tijera', routerLink:"/piedrapapeltijera"},
                     {label: 'Anagrama', routerLink:"/anagrama"},
+                    {label: 'TaTeTi', routerLink:"/tateti"},
                     {label: 'Mi juego'}
                 ]
             },

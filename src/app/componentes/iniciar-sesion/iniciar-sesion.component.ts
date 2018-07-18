@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import {Message, SelectItem} from 'primeng/components/common/api';
+import {Message} from 'primeng/components/common/api';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -11,10 +12,8 @@ export class IniciarSesionComponent implements OnInit {
   userform: FormGroup;
   
   submitted: boolean = false;
-
-  @Output() logueado:EventEmitter <any> = new EventEmitter <any>();
   
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private servicioUsuario: UsuarioService) {}
   
   ngOnInit() {
     this.userform = this.fb.group({
@@ -27,8 +26,8 @@ export class IniciarSesionComponent implements OnInit {
     this.submitted = true;
     //this.msgs = [];
     //this.msgs.push({severity:'success', summary:'Éxito', detail:'Se enviaron sus datos'});
-    this.logueado.emit(this.userform.value);
     console.log(this.userform.value);
+    this.servicioUsuario.logged = true;
   }
   
   get diagnostic() { return JSON.stringify(this.userform.value); }

@@ -1,53 +1,59 @@
-<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+<div *ngIf="!this.servicioUsuario.logged">
+  <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
     <p-panel header="Iniciar Sesión">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-2">
-                Nombre de Usuario o E-Mail:
-              </div>
-            </div>
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-6">
-                <input pInputText type="text" formControlName="nombreUsuario" placeholder="userTest"/>
-              </div>
-            </div>
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-4">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['nombreUsuario'].valid&&userform.controls['nombreUsuario'].dirty">
-                  <i class="fa fa-close"></i>
-                  Tiene que indicar su nombre de usuario o e-mail
-                </div>
-              </div>
-            </div>          
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-2">
-                Constraseña:
-              </div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                  <input pInputText type="password" formControlName="clave" placeholder="usuario.2018"/>
-                </div>
-            </div>
-            <div class="ui-grid-row">
-              <div class="ui-grid-col-4">
-                <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave'].valid&&userform.controls['clave'].dirty">
-                  <i class="fa fa-close"></i>
-                  <span *ngIf="userform.controls['clave'].errors['required']">Tiene que indicar su clave</span>
-                </div>
-            </div>
-            </div>
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-6">
-                    <button pButton type="submit" label="Iniciar sesión" [disabled]="!userform.valid" class="ui-button-success"></button>
-                </div>
-                <div class="ui-grid-col-4"></div>
-            </div>
-            <div style="text-align:center;margin-top:20px" *ngIf="submitted">
-                Formulario enviado
-                <br>
-                {{diagnostic}}
-            </div>
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Nombre de Usuario o E-Mail:
+          </div>
         </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="nombreUsuario" placeholder="userTest"/>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['nombreUsuario'].valid&&userform.controls['nombreUsuario'].dirty">
+              <i class="fa fa-close"></i>
+              Tiene que indicar su nombre de usuario o e-mail
+            </div>
+          </div>
+        </div>          
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            Constraseña:
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-6">
+            <input pInputText type="password" formControlName="clave" placeholder="usuario.2018"/>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave'].valid&&userform.controls['clave'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="userform.controls['clave'].errors['required']">Tiene que indicar su clave</span>
+            </div>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-6">
+            <button pButton type="submit" label="Iniciar sesión" [disabled]="!userform.valid" class="ui-button-success"></button>
+          </div>
+          <div class="ui-grid-col-4"></div>
+        </div>
+        <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+          Formulario enviado
+          <br>
+          {{diagnostic}}
+        </div>
+      </div>
     </p-panel>
   </form>
+</div>
+
+<div *ngIf="servicioUsuario.logged">
+  <h3>Usted ya inició sesión, si esta no es su cuenta puede desloguearse para poder ingresar con su cuenta.</h3>
+</div>

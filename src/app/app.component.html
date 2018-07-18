@@ -1,16 +1,5 @@
-<div *ngIf="!elUsuario">
-  <!-- <button (click)="mostrar()">Log In</button> -->
-  <app-iniciar-sesion (logueado)="mostrar($event)"></app-iniciar-sesion>
-</div>
+<app-nav-bar *ngIf="servicioUsuario.logged"></app-nav-bar>
 
-
-
-<!--The content below is only a placeholder and can be replaced.-->
-<div *ngIf="elUsuario">
-  <div>
-    <app-nav-bar></app-nav-bar>
-  </div>
-  <div class="contenido">
-    <router-outlet></router-outlet>
-  </div>
+<div class="contenido">
+  <router-outlet></router-outlet>
 </div>

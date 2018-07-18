@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Usuario } from "./clases/usuario";
+import { UsuarioService } from './servicios/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,9 @@ import { Usuario } from "./clases/usuario";
 })
 export class AppComponent {
   title = 'app';
-  elUsuario:Usuario;
-  //elUsuario:Usuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
-  logueado:boolean;
-
-  mostrar(){
-    this.elUsuario = new Usuario("Diego", "Lopez", "H", "dl2018", "diego@diego.com");
+  
+  constructor( private servicioUsuario:UsuarioService ) {
+    
   }
-
-  cargarUsuario(usuario){
-    this.elUsuario = new Usuario();
-    this.elUsuario.nombreUsuario = usuario.nombreUsuario;
-    //this.elUsuario.clave = usuario.clave;
-  }
+  
 }

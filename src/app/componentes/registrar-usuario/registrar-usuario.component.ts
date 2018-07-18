@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import {Message, SelectItem} from 'primeng/components/common/api';
 
+import { MiHttpService } from "../../servicios/mi-http.service";
+import { UsuarioService } from '../../servicios/usuario.service';
+
 @Component({
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
@@ -18,9 +21,10 @@ export class RegistrarUsuarioComponent implements OnInit {
   
   @Input() loggedin: boolean;  
   
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, public servicioUsuario: UsuarioService, public httpService:MiHttpService) {}
   
   ngOnInit() {
+    console.log(this.httpService.GET("http://localhost/api/hola"));
     this.userform = this.fb.group({
       'nombre': new FormControl('', Validators.required),
       'apellido': new FormControl('', Validators.required),
