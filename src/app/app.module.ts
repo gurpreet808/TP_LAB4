@@ -12,6 +12,7 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import {DropdownModule} from 'primeng/primeng';
 import {PanelModule} from 'primeng/panel';
 import {InputTextModule} from 'primeng/inputtext';
+import {TableModule} from 'primeng/table';
 
 import { MiHttpService } from "./servicios/mi-http.service";
 import { UsuarioService } from "./servicios/usuario.service";
@@ -31,6 +32,9 @@ import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/regis
 import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
 import { AuthGuard } from './servicios/auth.guard';
 import { ColorincheComponent } from './componentes/colorinche/colorinche.component';
+import { ListadoComponent } from './componentes/listado/listado.component';
+import { JugadaService } from './servicios/jugada.service';
+import { GanoPipe } from './pipes/gano.pipe';
 
 //#endregion
 
@@ -44,6 +48,7 @@ const appRoutes = [
   { path:"agilidad", component: AgilidadAritmeticaComponent, canActivate: [AuthGuard]},
   { path:"adivina", component: AdivinaElNumeroComponent, canActivate: [AuthGuard]},
   { path:"colorinche", component: ColorincheComponent, canActivate: [AuthGuard]},
+  { path:"listado", component: ListadoComponent, canActivate: [AuthGuard]},
   { path:"**", component: Error404Component }
 ]
 
@@ -61,7 +66,9 @@ const appRoutes = [
     UsuarioBtnComponent,
     RegistrarUsuarioComponent,
     IniciarSesionComponent,
-    ColorincheComponent
+    ColorincheComponent,
+    ListadoComponent,
+    GanoPipe
   ],
   imports: [
     BrowserModule,
@@ -75,12 +82,14 @@ const appRoutes = [
     DropdownModule,
     PanelModule,
     InputTextModule,
+    TableModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
     MiHttpService,
     UsuarioService,
-    AuthGuard
+    AuthGuard,
+    JugadaService
   ],
   bootstrap: [AppComponent]
 })

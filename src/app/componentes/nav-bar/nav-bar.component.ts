@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit {
                 icon: 'fa-trophy',
                 items: [
                     {label: 'Este juego'},
-                    {label: 'Todos los juegos'}
+                    {label: 'Todos los juegos', routerLink:"/listado"}
                 ]
             }
             /*,{
