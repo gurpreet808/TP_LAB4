@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-usuario-btn',
@@ -7,8 +8,8 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./usuario-btn.component.css']
 })
 export class UsuarioBtnComponent implements OnInit {
-  
-  constructor() { }
+    
+  constructor(private servicioUsuario:UsuarioService) { }
   
   items: MenuItem[];
   
@@ -21,7 +22,7 @@ export class UsuarioBtnComponent implements OnInit {
         this.update();
       }},
       {label: 'Desloguear', icon: 'fa-sign-out', command: () => {
-        this.delete();
+        this.desloguear();
       }}
     ];
   }
@@ -33,6 +34,7 @@ export class UsuarioBtnComponent implements OnInit {
   update() {
   }
   
-  delete() {
+  desloguear(){
+    this.servicioUsuario.desloguearUsuario();
   }
 }

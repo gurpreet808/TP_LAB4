@@ -1,5 +1,5 @@
 <div *ngIf="!this.servicioUsuario.logged">
-  <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)" id="loginForm">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" id="loginForm">
     <p-panel header="Iniciar Sesión">
       <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
         
@@ -15,7 +15,7 @@
           <div class="ui-grid-col-4">
           </div>
           <div class="ui-grid-col-8">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['email'].valid&&loginForm.controls['email'].dirty">
               <i class="fa fa-close"></i>
               Tiene que indicar su e-mail
             </div>
@@ -34,9 +34,9 @@
           <div class="ui-grid-col-4">
           </div>
           <div class="ui-grid-col-8">
-            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave'].valid&&userform.controls['clave'].dirty">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!loginForm.controls['clave'].valid&&loginForm.controls['clave'].dirty">
               <i class="fa fa-close"></i>
-              <span *ngIf="userform.controls['clave'].errors['required']">Tiene que indicar su clave</span>
+              <span *ngIf="loginForm.controls['clave'].errors['required']">Tiene que indicar su clave</span>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="ui-grid-col-3">
           </div>
           <div class="ui-grid-col-6">
-            <button pButton type="submit" label="Iniciar sesión" [disabled]="!userform.valid" class="ui-button-success"></button>
+            <button pButton type="submit" label="Iniciar sesión" [disabled]="!loginForm.valid" class="ui-button-success"></button>
           </div>
           <div class="ui-grid-col-3">
           </div>

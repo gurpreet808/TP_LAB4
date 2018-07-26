@@ -14,7 +14,7 @@ export class MiHttpService {
 
   constructor(public _miHttp:HttpClient) { }
 
-  urlServidor = 'http://localhost/apiParcial';
+  urlServidor = 'http://localhost/apiTP';
   
   GET(path: string): Observable<any>{
     return this._miHttp.get(this.urlServidor+path);

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {Message, SelectItem} from 'primeng/components/common/api';
 
 import { UsuarioService } from '../../servicios/usuario.service';
+import { Usuario } from '../../clases/usuario';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -18,6 +19,8 @@ export class RegistrarUsuarioComponent implements OnInit {
   sexos: SelectItem[];
   
   description: string;
+
+  registrado: boolean;
   
   @Input() loggedin: boolean;  
   
@@ -44,7 +47,20 @@ export class RegistrarUsuarioComponent implements OnInit {
     this.submitted = true;
     //this.msgs = [];
     //this.msgs.push({severity:'success', summary:'Éxito', detail:'Se enviaron sus datos'});
-    this.loggedin = true;
+    var usuario = new Usuario();    
+    delete this.userform.value.clave2;
+    usuario = this.userform.value;
+    //console.log(usuario);
+
+    this.servicioUsuario.registrarUsuario(usuario)
+    .subscribe(
+      (respBody) => {
+        console.log(respBody);
+        if(respBody["estado"]){
+          this.registrado = true;
+        }
+      }
+    );
   }
   
   get diagnostic() { return JSON.stringify(this.userform.value); }

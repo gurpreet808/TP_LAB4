@@ -10,14 +10,14 @@ import { UsuarioService } from '../../servicios/usuario.service';
   styleUrls: ['./iniciar-sesion.component.css']
 })
 export class IniciarSesionComponent implements OnInit {
-  userform: FormGroup;
+  loginForm: FormGroup;
   
   submitted: boolean = false;
   
   constructor(private fb: FormBuilder, private servicioUsuario: UsuarioService, public router:Router) {}
   
   ngOnInit() {
-    this.userform = this.fb.group({
+    this.loginForm = this.fb.group({
       'email': new FormControl('', Validators.required),
       'clave': new FormControl('', Validators.compose([Validators.required])),
     });
@@ -27,13 +27,23 @@ export class IniciarSesionComponent implements OnInit {
     this.submitted = true;
     //this.msgs = [];
     //this.msgs.push({severity:'success', summary:'Éxito', detail:'Se enviaron sus datos'});
-    console.log(this.userform.value);
-    this.servicioUsuario.logged = true;
-    
-    this.navegar("");
+    var usuarioSesion = this.loginForm.value;
+    //console.log(usuario);
+
+    this.servicioUsuario.loguearUsuario(usuarioSesion)
+    .subscribe(
+      (respBody) => {
+        console.log(respBody);
+        localStorage.setItem("token", respBody["token"]);
+        this.servicioUsuario.token = respBody["token"];
+        this.servicioUsuario.decodificarToken();
+        this.servicioUsuario.logged = true;
+        this.navegar("");
+      }
+    );
   }
   
-  get diagnostic() { return JSON.stringify(this.userform.value); }
+  get diagnostic() { return JSON.stringify(this.loginForm.value); }
 
   navegar(url: string) {
     this.router.navigateByUrl("/"+url);

@@ -1,1 +1,1 @@
-<p-splitButton label="Usuario" icon="fas fa-user" (onClick)="save()" [model]="items"></p-splitButton>
+<p-splitButton [label]="this.servicioUsuario.elUsuario.nombre | titlecase" icon="fas fa-user" (onClick)="save()" [model]="items"></p-splitButton>
