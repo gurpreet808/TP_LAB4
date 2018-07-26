@@ -17,7 +17,7 @@ export class JugadaService {
     return this._http.GET("/jugada/");
   }
 
-  registrarJugada(jugada:Jugada){
+  registrarJugada(jugada){
     return this._http.POST("/jugada/", jugada);
   }
 }

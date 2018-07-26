@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { UsuarioService } from '../../servicios/usuario.service';
+import { Router } from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-usuario-btn',
@@ -9,7 +10,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 })
 export class UsuarioBtnComponent implements OnInit {
     
-  constructor(private servicioUsuario:UsuarioService) { }
+  constructor(private servicioUsuario:UsuarioService, private router:Router) { }
   
   items: MenuItem[];
   
@@ -36,5 +37,6 @@ export class UsuarioBtnComponent implements OnInit {
   
   desloguear(){
     this.servicioUsuario.desloguearUsuario();
+    this.router.navigateByUrl("");
   }
 }

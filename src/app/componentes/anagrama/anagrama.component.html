@@ -1,3 +1,26 @@
-<p>
-  anagrama works!
-</p>
+<div style="text-align: center">  
+  <div id="tituloJuego">
+    <h1>{{nuevoJuego.nombre}}!</h1>
+  </div>
+
+  <h2>Palabra desordenada:</h2>
+  <h2>{{nuevoJuego.palabraDesordenada}}</h2>
+  
+  <div *ngIf="!ocultarVerificar">
+    <input pInputText [(ngModel)]="nuevoJuego.palabraIngresada" placeholder="palabra ordenada" name="palabraOrdenadaa" type="text" class="form-control"/>
+    <button pButton *ngIf="nuevoJuego.esperando!=0" (click)="verificar()" class="ui-button-success" label="Verificar {{Tiempo}}"> </button>
+  </div>
+  
+  <div *ngIf="!ocultarComenzar">
+    <button pButton *ngIf="nuevoJuego.palabraDesordenada!=null " (click)="generarPalabra()" class="ui-button-info" label="Nuevo Juego"></button>
+  </div>
+  
+  <div>
+    <h2 *ngIf="nuevoJuego.gano">usted adivino la palabra</h2>
+    <h2 *ngIf="perdio">usted aún no gano </h2>
+  </div>
+  
+  <div id="msj">
+    <h2>{{Mensajes}}</h2>
+  </div>
+</div>

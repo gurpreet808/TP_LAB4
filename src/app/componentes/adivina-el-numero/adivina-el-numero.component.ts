@@ -1,5 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Adivina } from '../../clases/adivina';
+import { JugadaService } from '../../servicios/jugada.service';
+import { Jugada } from '../../clases/jugada';
+import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
   selector: 'app-adivina-el-numero',
@@ -14,7 +17,7 @@ export class AdivinaElNumeroComponent implements OnInit {
   nuevaPartida:boolean = true;
   ayudas:string;
   
-  constructor() { 
+  constructor(public servicioJugada:JugadaService, public servicioUsuario:UsuarioService) { 
     this.nuevoJuego = new Adivina();
   }
   
@@ -32,6 +35,20 @@ export class AdivinaElNumeroComponent implements OnInit {
       this.mensajes = "Sos un Genio!!! Lo adivinaste."
       this.ayudas = "";
       //console.log("Sos un Genio!!! Lo adivinaste.");
+      var jugada = {
+        id_jugador: this.servicioUsuario.elUsuario.id,
+        nombre_juego: this.nuevoJuego.nombre,
+        gano: this.nuevoJuego.gano
+      }
+      //console.log(jugada);
+  
+      this.servicioJugada.registrarJugada(jugada)
+      .subscribe(
+        (respBody) => {
+          console.log(respBody);
+        }
+      );
+
       this.nuevaPartida = true;
     } else {
 

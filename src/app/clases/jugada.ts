@@ -1,4 +1,4 @@
-export interface Jugada {
+export class Jugada {
     id_jugada:number;
     id_jugador:string;
     nombre_juego:string;
