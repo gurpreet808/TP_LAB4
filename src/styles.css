@@ -5,4 +5,11 @@ body{
 
 div.contenido{
     background-color: rgba(255, 255, 255, 0.88);
+    text-align: center;
+    padding: 2%;
+}
+
+#loginForm{
+    padding-left: 25%; 
+    padding-right: 25%;
 }

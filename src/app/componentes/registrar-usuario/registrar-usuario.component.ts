@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import {Message, SelectItem} from 'primeng/components/common/api';
 
-import { MiHttpService } from "../../servicios/mi-http.service";
 import { UsuarioService } from '../../servicios/usuario.service';
 
 @Component({
@@ -21,15 +21,13 @@ export class RegistrarUsuarioComponent implements OnInit {
   
   @Input() loggedin: boolean;  
   
-  constructor(private fb: FormBuilder, public servicioUsuario: UsuarioService, public httpService:MiHttpService) {}
+  constructor(private fb: FormBuilder, public servicioUsuario: UsuarioService, public router:Router) {}
   
   ngOnInit() {
-    console.log(this.httpService.GET("http://localhost/api/hola"));
     this.userform = this.fb.group({
       'nombre': new FormControl('', Validators.required),
       'apellido': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
-      'nombreUsuario': new FormControl('', Validators.required),
       'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       'clave2': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       'descripcion': new FormControl(''),
@@ -50,4 +48,8 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
   
   get diagnostic() { return JSON.stringify(this.userform.value); }
+
+  navegar(url: string) {
+    this.router.navigateByUrl("/"+url);
+  }
 }

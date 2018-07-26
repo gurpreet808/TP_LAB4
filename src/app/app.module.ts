@@ -30,6 +30,7 @@ import { UsuarioBtnComponent } from './componentes/usuario-btn/usuario-btn.compo
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
 import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
 import { AuthGuard } from './servicios/auth.guard';
+import { ColorincheComponent } from './componentes/colorinche/colorinche.component';
 
 //#endregion
 
@@ -42,6 +43,7 @@ const appRoutes = [
   { path:"piedrapapeltijera", component: PiedraPapelTijeraComponent, canActivate: [AuthGuard]},
   { path:"agilidad", component: AgilidadAritmeticaComponent, canActivate: [AuthGuard]},
   { path:"adivina", component: AdivinaElNumeroComponent, canActivate: [AuthGuard]},
+  { path:"colorinche", component: ColorincheComponent, canActivate: [AuthGuard]},
   { path:"**", component: Error404Component }
 ]
 
@@ -58,7 +60,8 @@ const appRoutes = [
     Error404Component,
     UsuarioBtnComponent,
     RegistrarUsuarioComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    ColorincheComponent
   ],
   imports: [
     BrowserModule,

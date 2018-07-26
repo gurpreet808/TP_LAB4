@@ -1,0 +1,30 @@
+<div style="text-align: center">  
+    <div id="tituloJuego">
+      <h1>{{nuevoJuego.nombre}}!</h1>
+    </div>
+    
+    <div *ngIf="cantPartida > 0">
+
+      <h1 [style.color]="fondo">{{texto}}</h1>
+
+      <h2>El texto corresponde al color?:</h2>
+
+      <div *ngIf="!eleccion">
+        <button pButton class="ui-button-success" (click)="verificar(true)" label="SI"></button>
+        <button pButton class="ui-button-danger" (click)="verificar(false)" label="NO"></button>
+      </div>
+    </div>
+    
+    <p id="msj" *ngIf="mensajes">
+      {{mensajes}}
+    </p>
+    
+    <p id="elec" *ngIf="eleccion">
+      {{eleccion}}
+    </p>
+
+    <div *ngIf="true">
+      <button pButton (click)="generarColores()" label="Nuevo Juego"></button>
+    </div>
+  </div>
+  <br>
