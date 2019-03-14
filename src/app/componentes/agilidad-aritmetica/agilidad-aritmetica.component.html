@@ -1,3 +1,22 @@
-<p>
-  agilidad-aritmetica works!
-</p>
+<mat-card style="text-align: center">
+  <mat-card-title>{{nuevoJuego.nombre}}!</mat-card-title>
+  
+  <mat-card-content>
+    <div *ngIf="!ocultarComenzar">
+      <button mat-raised-button (click)="NuevoJuego()" mat-button color="primary">Nuevo Juego</button>
+    </div>
+
+    <div *ngIf="!ocultarJuego">
+      <h2>{{this.nuevoJuego.calculo}} =</h2>
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="this.nuevoJuego.resultadoUsuario" placeholder="Resultado" type="number" [disabled]="disableVerif">
+      </mat-form-field>
+      <button mat-raised-button (click)="Verificar()" mat-button color="primary" [disabled]="disableVerif">Verificar {{temporizador}}</button>
+    </div>
+
+    <div *ngIf="!ocultarMsj">
+      <h2 *ngIf="nuevoJuego.gano">Ganaste!</h2>
+      <h2 *ngIf="!nuevoJuego.gano">Perdiste...</h2>
+    </div>
+  </mat-card-content>
+</mat-card>

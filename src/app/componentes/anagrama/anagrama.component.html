@@ -1,26 +1,22 @@
-<div style="text-align: center">  
-  <div id="tituloJuego">
-    <h1>{{nuevoJuego.nombre}}!</h1>
-  </div>
+<mat-card style="text-align: center">  
+  <mat-card-title>{{nuevoJuego.nombre}}!</mat-card-title>
 
-  <h2>Palabra desordenada:</h2>
-  <h2>{{nuevoJuego.palabraDesordenada}}</h2>
-  
-  <div *ngIf="!ocultarVerificar">
-    <input pInputText [(ngModel)]="nuevoJuego.palabraIngresada" placeholder="palabra ordenada" name="palabraOrdenadaa" type="text" class="form-control"/>
-    <button pButton *ngIf="nuevoJuego.esperando!=0" (click)="verificar()" class="ui-button-success" label="Verificar {{Tiempo}}"> </button>
-  </div>
-  
-  <div *ngIf="!ocultarComenzar">
-    <button pButton *ngIf="nuevoJuego.palabraDesordenada!=null " (click)="generarPalabra()" class="ui-button-info" label="Nuevo Juego"></button>
-  </div>
-  
-  <div>
-    <h2 *ngIf="nuevoJuego.gano">usted adivino la palabra</h2>
-    <h2 *ngIf="perdio">usted aún no gano </h2>
-  </div>
-  
-  <div id="msj">
-    <h2>{{Mensajes}}</h2>
-  </div>
-</div>
+  <mat-card-content>
+    <div *ngIf="!ocultarVerificar">
+      <p>Palabra desordenada: <strong>{{nuevoJuego.palabraDesordenada}}</strong></p>
+      <mat-form-field class="example-full-width">
+        <input matInput [(ngModel)]="nuevoJuego.palabraIngresada" placeholder="Palabra ordenada" name="palabraOrdenadaa">
+      </mat-form-field>
+      <button mat-raised-button *ngIf="nuevoJuego.esperando!=0" (click)="verificar()" color="primary">Verificar {{temporizador}}</button>
+    </div>
+    
+    <div *ngIf="!ocultarComenzar">
+      <button mat-raised-button *ngIf="nuevoJuego.palabraDesordenada!=null " (click)="generarPalabra()" color="primary">Nuevo Juego</button>
+    </div>
+    
+    <div *ngIf="!ocultarMsj">
+      <h2 *ngIf="nuevoJuego.gano">Ganaste!</h2>
+      <h2 *ngIf="!nuevoJuego.gano">Perdiste...</h2>
+    </div>
+  </mat-card-content>
+</mat-card>

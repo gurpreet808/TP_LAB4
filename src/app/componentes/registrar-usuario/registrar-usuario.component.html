@@ -1,114 +1,38 @@
-<div *ngIf="!servicioUsuario.logged">
-
-    <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
-      <p-panel header="Registrar usuario">
-          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      Nombre *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <input pInputText type="text" formControlName="nombre" placeholder="Requerido"/>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['nombre'].valid&&userform.controls['nombre'].dirty">
-                          <i class="fa fa-close"></i>
-                          Tiene que indicar su nombre
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      Apellido *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <input pInputText type="text" formControlName="apellido" placeholder="Requerido"/>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['apellido'].valid&&userform.controls['apellido'].dirty">
-                          <i class="fa fa-close"></i>
-                          Tiene que indicar su apellido
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      E-Mail *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <input pInputText type="text" formControlName="email" placeholder="Requerido"/>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty">
-                          <i class="fa fa-close"></i>
-                          Tiene que indicar su E-Mail
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      Clave *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <input pInputText type="password" formControlName="clave" placeholder="Requerido - Min(6)"/>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave'].valid&&userform.controls['clave'].dirty">
-                          <i class="fa fa-close"></i>
-                          <span *ngIf="userform.controls['clave'].errors['required']">Tiene que indicar cuál será su clave</span>
-                          <span *ngIf="userform.controls['clave'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      Confirmar constraseña *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <input pInputText type="password" formControlName="clave2" placeholder="Requerido - Min(6)"/>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['clave2'].valid&&userform.controls['clave2'].dirty">
-                          <i class="fa fa-close"></i>
-                          <span *ngIf="userform.controls['clave2'].errors['required']">Tiene que confirmar cuál será su clave</span>
-                          <span *ngIf="userform.controls['clave2'].errors['minlength']">Tiene que tener al menos 6 caracteres</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2">
-                      Sexo *:
-                  </div>
-                  <div class="ui-grid-col-6">
-                      <p-dropdown [options]="sexos" formControlName="sexo" [autoWidth]="false"></p-dropdown>
-                  </div>
-                  <div class="ui-grid-col-4">
-                      <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userform.controls['sexo'].valid&&userform.controls['sexo'].dirty">
-                          <i class="fa fa-close"></i>
-                          Tiene que indicar su sexo
-                      </div>
-                  </div>
-              </div>
-              <div class="ui-grid-row">
-                  <div class="ui-grid-col-2"></div>
-                  <div class="ui-grid-col-6">
-                      <button pButton type="submit" label="Registrar" [disabled]="!userform.valid"></button>
-                  </div>
-                  <div class="ui-grid-col-4"></div>
-              </div>
-              <div style="text-align:center;margin-top:20px" *ngIf="submitted">
-                  Formulario enviado
-                  <br>
-                  {{diagnostic}}
-              </div>
-          </div>
-      </p-panel>
-    </form>
-
-    <h3>Si ya posee cuenta debe iniciar sesión con su cuenta para poder jugar.</h3>
-    <button pButton type="button" label="Iniciar sesión" (click)='navegar("login")'></button>
+<div *ngIf="this.registrado">
+  <h1>Se registró correctamente puede iniciar sesión</h1>
 </div>
+<mat-card>
+    <mat-card-title>Registrar usuario</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="registerForm" (ngSubmit)="registrar()" class="basicForm">
+        
+        <mat-form-field class="inputForm" [hintLabel]="nombrehint()">
+          <input type="text" formControlName="nombre" matInput placeholder="Nombre">
+        </mat-form-field>
 
-<div *ngIf="servicioUsuario.logged">
-    <h3>Usted ya posee una cuenta, debe desloguearse si quiere registrar otro usuario.</h3>
-</div>
+        <mat-form-field class="inputForm" [hintLabel]="apellidohint()">
+          <input type="text" formControlName="apellido" matInput placeholder="Apellido">
+        </mat-form-field>
+
+        <mat-form-field class="inputForm" [hintLabel]="emailhint()">
+          <input type="text" formControlName="email" matInput placeholder="E-Mail">
+        </mat-form-field>
+      
+        <mat-form-field [hintLabel]="passhint()">
+          <input type="password" maxlength="12" #pass formControlName="pass" matInput placeholder="Contraseña">
+          <mat-hint align="end">{{pass.value.length}} / 12</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field [hintLabel]="pass2hint()">
+          <input type="password" maxlength="12" #pass2 formControlName="pass2" matInput placeholder="Confirmar contraseña">
+          <mat-hint align="end">{{pass2.value.length}} / 12</mat-hint>
+        </mat-form-field>
+        
+      </form>
+      
+    </mat-card-content>
+    
+    <mat-card-content>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid" (click)="registrar()">Enviar datos</button>
+    </mat-card-content>
+  </mat-card>

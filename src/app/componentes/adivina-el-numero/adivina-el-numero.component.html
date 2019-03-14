@@ -1,24 +1,19 @@
-<div style="text-align: center">  
-  <div id="tituloJuego">
-    <h1>{{nuevoJuego.nombre}}!</h1>
-  </div>
+<mat-card style="text-align: center">  
+  <mat-card-title>{{nuevoJuego.nombre}}!</mat-card-title>
   
   <div *ngIf="contador > -1">
-    <h2>Ingresá el número:</h2>
-    <input pInputText [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number" name="" id="">
-    <button pButton (click)="verificar()" label="Verificar"></button>
+    <h3>Ingresá el número que creas que elegí:</h3>
+    <mat-form-field>
+      <input matInput [(ngModel)]="this.nuevoJuego.numeroIngresado" type="number">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="verificar()" [disabled]="nuevaPartida">Verificar</button>
   </div>
   
   <div *ngIf="nuevaPartida">
-    <button pButton (click)="generarNumero()" label="Nuevo Juego"></button>
+    <button mat-raised-button color="primary"(click)="generarNumero()">Nuevo Juego</button>
   </div>
+    
+  <p id="msj" *ngIf="mensajes">{{mensajes}}</p>
   
-  <div id="msj" *ngIf="mensajes">
-    {{mensajes}}
-  </div>
-  
-  <div id="ayudante" *ngIf="ayudas" class="unaAnimacion">
-    {{ayudas}}
-  </div>
-</div>
-<br>
+  <p id="ayudante" *ngIf="ayudas" class="unaAnimacion">{{ayudas}}</p>
+</mat-card>

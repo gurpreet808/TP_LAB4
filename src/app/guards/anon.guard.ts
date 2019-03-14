@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { UsuarioService } from './usuario.service';
+import { Observable } from 'rxjs';
+import { UsuarioService } from '../servicios/usuario.service';
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-
-  constructor(private router:Router, private servicioUsuario:UsuarioService) { }
+@Injectable({
+  providedIn: 'root'
+})
+export class AnonGuard implements CanActivate {
+  constructor(private router:Router, private servUsr:UsuarioService) { }
   
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.servicioUsuario.logged) {
+    if (!this.servUsr.logueado.value) {
       return true;
     }
+    console.log("SOLO PARA INVITADOS");
     this.router.navigateByUrl("/");
     return false;
   }

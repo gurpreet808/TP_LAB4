@@ -1,0 +1,12 @@
+.basicForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-form-field{
+    margin-top: 2.5%;
+}
+
+/* .mat-hint{
+   color: rgb(0, 4, 213);
+} */

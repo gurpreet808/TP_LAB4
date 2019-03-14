@@ -1,10 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import {Message, SelectItem} from 'primeng/components/common/api';
-
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../servicios/usuario.service';
-import { Usuario } from '../../clases/usuario';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -12,60 +8,84 @@ import { Usuario } from '../../clases/usuario';
   styleUrls: ['./registrar-usuario.component.css']
 })
 export class RegistrarUsuarioComponent implements OnInit {
-  userform: FormGroup;
-  
-  submitted: boolean;
-  
-  sexos: SelectItem[];
-  
-  description: string;
 
-  registrado: boolean;
+  public registerForm: FormGroup;
+  public registrado: boolean;
+
+  nombrehint(){
+    if (!this.registerForm.controls['nombre'].valid) {
+      return "Dato obligatorio";
+    }
+  }
+  apellidohint(){
+    if (!this.registerForm.controls['apellido'].valid) {
+      return "Dato obligatorio";
+    }
+  }
+  emailhint(){
+    if (!this.registerForm.controls['email'].valid) {
+      return "Dato obligatorio, con el formato nombre@dominio.com";
+    }
+  }
+  passhint(){
+    if (!this.registerForm.controls['pass'].valid) {
+      return "Dato obligatorio";
+    }
+
+    if(this.registerForm.controls['pass'].value != this.registerForm.controls['pass2'].value){
+      return "No coinciden las contraseñas ingresadas";
+    }
+    
+    return "";
+  }
+  pass2hint(){
+    if (!this.registerForm.controls['pass2'].valid) {
+      return "Dato obligatorio";
+    }
+
+    if(this.registerForm.controls['pass'].value != this.registerForm.controls['pass2'].value){
+      return "No coinciden las contraseñas ingresadas";
+    }
+    
+    return "";
+  }
   
-  @Input() loggedin: boolean;  
-  
-  constructor(private fb: FormBuilder, public servicioUsuario: UsuarioService, public router:Router) {}
+  constructor(private formBuilder: FormBuilder, public servUsr: UsuarioService) {
+    
+    this.registerForm = this.formBuilder.group({
+      nombre: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
+      apellido: ['', Validators.compose([Validators.maxLength(30), Validators.required])],
+      email: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'), Validators.required])],
+      pass: ['', Validators.compose([Validators.maxLength(12), Validators.required])],
+      pass2: ['', Validators.compose([Validators.maxLength(12), Validators.required])]
+    });
+
+  }
   
   ngOnInit() {
-    this.userform = this.fb.group({
-      'nombre': new FormControl('', Validators.required),
-      'apellido': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
-      'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      'clave2': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      'descripcion': new FormControl(''),
-      'sexo': new FormControl('', Validators.required)
+
+  }
+  
+  registrar(){
+    this.servUsr.registrar({
+      nombre: this.registerForm.value.nombre,
+      apellido: this.registerForm.value.apellido,
+      email: this.registerForm.value.email,
+      clave: this.registerForm.value.pass,
+      tipo: "cliente"
     });
-    
-    this.sexos = [];
-    this.sexos.push({label:'Seleccione su sexo', value:''});
-    this.sexos.push({label:'Hombre', value:'Hombre'});
-    this.sexos.push({label:'Mujer', value:'Mujer'});
-  }
-  
-  onSubmit(value: string) {
-    this.submitted = true;
-    //this.msgs = [];
-    //this.msgs.push({severity:'success', summary:'Éxito', detail:'Se enviaron sus datos'});
-    var usuario = new Usuario();    
-    delete this.userform.value.clave2;
-    usuario = this.userform.value;
-    //console.log(usuario);
 
-    this.servicioUsuario.registrarUsuario(usuario)
-    .subscribe(
-      (respBody) => {
-        console.log(respBody);
-        if(respBody["estado"]){
+    this.servUsr.registrado.subscribe(
+      data =>{
+        if(data){
           this.registrado = true;
+          this.registerForm.disable();
         }
+      },
+      err => {
+        console.log(err);
       }
-    );
+    )
   }
-  
-  get diagnostic() { return JSON.stringify(this.userform.value); }
 
-  navegar(url: string) {
-    this.router.navigateByUrl("/"+url);
-  }
 }

@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { Usuario } from "./clases/usuario";
-import { UsuarioService } from './servicios/usuario.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +6,5 @@ import { UsuarioService } from './servicios/usuario.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-  
-  constructor( private servicioUsuario:UsuarioService ) {
-    
-  }
+  title = 'SalaDeJuegos';
 }

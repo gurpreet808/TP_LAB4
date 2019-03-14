@@ -1,59 +1,111 @@
 import { Injectable } from '@angular/core';
-import { MiHttpService } from "./mi-http.service";
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+import { MiHttpService } from './mi-http.service';
 import { Usuario } from '../clases/usuario';
-import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-@Injectable()
-
+@Injectable({
+  providedIn: 'root'
+})
 export class UsuarioService {
 
-  usuarios: Usuario[];  
-  logged: boolean = false;
-  elUsuario: Usuario;
-  token: string = null;
+  public _user: Usuario;
+  public token: string;
+  public logueado = new BehaviorSubject(false);
+  public registrado = new BehaviorSubject(false);
 
   jwtauth = new JwtHelperService();
 
-  constructor(public _http: MiHttpService) {
-    //this.elUsuario = new Usuario();
-    this.token = localStorage.getItem("token");
-
-    if (!this.comprobarTokenExpirado(this.token)) {
-      this.logged = true;
-      this.decodificarToken();
-    }
+  constructor(public _http: MiHttpService, public router: Router) {
+    this.comprobacionInicialToken(); 
   }
 
-  traerUsuarios(): Observable<Usuario[]>{
-    return this._http.GET("/usuario/");
+  login(usuario: string, clave: string){
+    let datos = {
+      email: usuario, 
+      clave: clave
+    };
+
+    this._http.POST("/usuario/login", datos).subscribe(
+      data =>{
+        console.log(data);
+        //EXTRAER token
+        localStorage.setItem("token", data["token"]);
+        this.token = data["token"];
+
+        //DECODIFICO token y asigno los datos a usuario
+        this.asignarDatosToken();
+
+        //AVISAR que se logueó bien
+        this.logueado.next(true);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-  registrarUsuario(usuario:Usuario){
-    return this._http.POST("/usuario/", usuario);
+  login_observable(usuario: string, clave: string){
+    let datos = {
+      email: usuario, 
+      clave: clave
+    };
+
+    return this._http.POST("/usuario/login", datos);
   }
 
-  loguearUsuario(sesion){
-    return this._http.POST("/usuario/login", sesion);
+  registrar(datos: any){
+    this._http.POST("/usuario/", datos).subscribe(
+      data =>{
+        console.log(data);
+        if (data["estado"]=="OK") {
+          this.registrado.next(true);
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   desloguearUsuario(){
-    this.logged = false;
+    this.logueado.next(false);
+    delete this._user;
     localStorage.removeItem("token");
-    this.elUsuario = null;
+  }
+
+  comprobacionInicialToken(){
+    if (localStorage.getItem("token")) {
+      console.log("Hay TOKEN");
+      this.token = localStorage.getItem("token");
+
+      if (!this.comprobarTokenExpirado(this.token)) {
+        this.asignarDatosToken();
+        this.logueado.next(true);
+      }
+
+    }
   }
 
   comprobarTokenExpirado(token){
     let isExpired = this.jwtauth.isTokenExpired(token);
-    //console.log(isExpired);
+    console.log("Expiro el token?",isExpired);
 
     return isExpired;
   }
 
   decodificarToken(){
     let payload = this.jwtauth.decodeToken(this.token);
-    
-    this.elUsuario = payload.data;
-    console.log(this.elUsuario);
+    //console.log("Payload", payload);
+
+    return payload.data;
   }
+
+  asignarDatosToken(){
+    this._user = new Usuario();
+    this._user = this.decodificarToken();
+    //console.log("Usuario en Servicio", this._user);
+  }
+
 }

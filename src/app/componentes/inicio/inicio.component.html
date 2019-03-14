@@ -1,12 +1,8 @@
-<h1>Sala de Juegos</h1>
-
-<div *ngIf="!this.servicioUsuario.logged">
-  <h3>Debe iniciar sesión con su cuenta para poder jugar.</h3>
-  <button pButton type="button" label="Iniciar sesión" (click)='navegar("login")'></button>
-  <h3>Si no posee una cuenta puede registrarse con el siguiente enlace</h3>
-  <button pButton type="button" label="Registrarme" class="ui-button-info" (click)='navegar("registrarme")'></button>
+<div *ngIf="!this.servUsr.logueado.value">
+  <h3>Debe iniciar sesión con su cuenta para poder ingresar a la aplicación.</h3>
+  <h3>Si no posee una cuenta puede registrarse.</h3>
 </div>
 
-<div *ngIf="this.servicioUsuario.logged">
-  Bienvenido
+<div *ngIf="this.servUsr.logueado.value">
+  <h1>Bienvenido usuario {{this.servUsr._user.nombre}} {{this.servUsr._user.apellido}}!</h1>
 </div>

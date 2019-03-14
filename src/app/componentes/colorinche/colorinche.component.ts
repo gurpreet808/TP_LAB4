@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Colorinche } from '../../clases/colorinche';
+import { MatSnackBar } from '@angular/material';
+import { JugadaService } from 'src/app/servicios/jugada.service';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-colorinche',
@@ -8,50 +11,97 @@ import { Colorinche } from '../../clases/colorinche';
 })
 export class ColorincheComponent implements OnInit {
   
-  nuevoJuego:Colorinche;
-  mensajes:string;
-  eleccion:string;
-  cantPartida:number = 0;
+  nuevoJuego: Colorinche;
+  mensajes: string;
   texto: string;
   fondo: string;
+  habilitarEleccion: boolean = false;
+  ocultarComenzar: boolean = false;
+  ocultarJuego: boolean = true;
+  repetidor: any;
+  temporizador: number;
+  //segundos para repsonder
+  tiempo: number = 15;
   
-  constructor() { 
+  constructor(public servicioJugada:JugadaService, public servicioUsuario:UsuarioService, public snackBar: MatSnackBar) { 
     this.nuevoJuego = new Colorinche();
+    this.temporizador = this.tiempo;
   }
   
   
   generarColores() {
     this.nuevoJuego.generarColores();
+    this.ocultarJuego = false;
+    this.ocultarComenzar = true;
+    this.ocultarComenzar = false;
+    this.temporizador = this.tiempo;
 
     this.fondo = ColoresFondo[this.nuevoJuego.colorFondo];
     this.texto = ColoresTexto[this.nuevoJuego.colorTexto];
 
-    this.cantPartida++;
-    this.eleccion = null;
+    this.habilitarEleccion = true;
     this.mensajes = null;
-  }
-  
-  verificar(rta:boolean) {
 
+    this.repetidor = setInterval(()=>{
+      this.temporizador--;
+      if(this.temporizador == 0 ) {
+        clearInterval(this.repetidor);
+        this.verificar(this.check());        
+      }
+    }, 900);
+  }
+
+
+  check(){
+    if (this.nuevoJuego.colorTexto == this.nuevoJuego.colorFondo){
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  verificar(rta: boolean) {
     this.nuevoJuego.respuesta = rta;
+    clearInterval(this.repetidor);
 
     if (this.nuevoJuego.verificar()) {
-      this.mensajes = "Qué vista!!! Acertaste."
+      this.snackBar.open("Qué vista!!! Acertaste.", "OK");
+      this.mensajes = "Ganaste!";
+      this.servicioJugada.registrarJugada(this.nuevoJuego.nombre, this.servicioUsuario._user.email, "1");
     } else {
-      this.mensajes = "MAL!"
+      this.snackBar.open("Uhhh, tal vez la próxima", "OK");
+      this.mensajes = "Perdiste...";
+      this.servicioJugada.registrarJugada(this.nuevoJuego.nombre, this.servicioUsuario._user.email, "0");
     }
 
-    this.eleccion = "Elegiste: ";
-
-    if (this.nuevoJuego.respuesta) {
-      this.eleccion = this.eleccion+"SI";
-    } else {
-      this.eleccion = this.eleccion+"NO";
-    }
+    this.habilitarEleccion = false;
+    this.ocultarComenzar = false;
   } 
+
+  btn(opt: string){
+    let btnStyle;
+
+    if (this.habilitarEleccion) {
+      switch (opt) {
+        case "si":
+          btnStyle = {"background-color":"green"};
+        break;
+  
+        case "no":
+          btnStyle = {"background-color":"red"};
+        break;
+      
+        default:
+          break;
+      }
+    }
+
+
+    return btnStyle;
+  }
 
   ngOnInit() {
-  } 
+  }
 }
 
 enum ColoresTexto {

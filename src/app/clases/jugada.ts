@@ -1,7 +1,7 @@
 export class Jugada {
-    id_jugada:number;
-    id_jugador:string;
-    nombre_juego:string;
-    gano:boolean;
-    fecha:string;
+    public id_jugada:number;
+    public id_jugador:string;
+    public nombre_juego:string;
+    public gano:string;
+    public fecha:string;
 }

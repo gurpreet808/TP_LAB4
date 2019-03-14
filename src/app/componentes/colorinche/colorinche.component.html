@@ -1,30 +1,22 @@
-<div style="text-align: center">  
-    <div id="tituloJuego">
-      <h1>{{nuevoJuego.nombre}}!</h1>
+<mat-card style="text-align: center"> 
+  <mat-card-title>{{nuevoJuego.nombre}}!</mat-card-title>
+  <div *ngIf="!ocultarJuego">
+    <h1 [style.color]="fondo">{{texto}}</h1>
+    
+    <h2>El texto corresponde al color?:</h2>
+    <div>
+      <button mat-raised-button color="primary" [ngStyle]='btn("si")' (click)="verificar(true)" [disabled]="!habilitarEleccion">SI</button>
+      <button mat-raised-button color="primary" [ngStyle]='btn("no")' (click)="verificar(false)" [disabled]="!habilitarEleccion">NO</button>
     </div>
-    
-    <div *ngIf="cantPartida > 0">
-
-      <h1 [style.color]="fondo">{{texto}}</h1>
-
-      <h2>El texto corresponde al color?:</h2>
-
-      <div *ngIf="!eleccion">
-        <button pButton class="ui-button-success" (click)="verificar(true)" label="SI"></button>
-        <button pButton class="ui-button-danger" (click)="verificar(false)" label="NO"></button>
-      </div>
-    </div>
-    
-    <p id="msj" *ngIf="mensajes">
-      {{mensajes}}
-    </p>
-    
-    <p id="elec" *ngIf="eleccion">
-      {{eleccion}}
+    <p>
+      <strong>Tiempo: {{temporizador}}</strong>
     </p>
 
-    <div *ngIf="true">
-      <button pButton (click)="generarColores()" label="Nuevo Juego"></button>
-    </div>
   </div>
-  <br>
+
+  <h3 id="msj" *ngIf="mensajes">{{mensajes}}</h3>
+
+  <div *ngIf="!ocultarComenzar">
+      <button mat-raised-button color="primary" (click)="generarColores()">Nuevo Juego</button>
+  </div>
+</mat-card>

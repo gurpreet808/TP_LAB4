@@ -1,0 +1,32 @@
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="listData" matSort>
+    <ng-container matColumnDef="nombre_juego">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del juego</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.nombre_juego}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="id_jugador">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Jugador</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.id_jugador}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gano">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Resultado</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.gano|gano}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="fecha">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de jugada</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.fecha}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 25, 50, 100]" [pageSize]="25"></mat-paginator>
+</div>

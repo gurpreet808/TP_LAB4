@@ -5,9 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class GanoPipe implements PipeTransform {
 
-  transform(value: number, args?: any): string {
-    if (value === 0) return 'Perdió';
-    return 'Ganó';
+  transform(value: any, args?: any): any {
+    if(value == "0"){
+      return "Perdió";
+    }
+    if(value == "1"){
+      return "Ganó";
+    }
   }
 
 }

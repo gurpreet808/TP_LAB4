@@ -1,95 +1,79 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from "@angular/router";
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
 
-import {MenubarModule} from 'primeng/menubar';
-import {ButtonModule} from 'primeng/button';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {DropdownModule} from 'primeng/primeng';
-import {PanelModule} from 'primeng/panel';
-import {InputTextModule} from 'primeng/inputtext';
-import {TableModule} from 'primeng/table';
-
-import { MiHttpService } from "./servicios/mi-http.service";
-import { UsuarioService } from "./servicios/usuario.service";
-
-//#region Mis componentes
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
-import { TatetiComponent } from './componentes/tateti/tateti.component';
-import { AnagramaComponent } from './componentes/anagrama/anagrama.component';
-import { PiedraPapelTijeraComponent } from './componentes/piedra-papel-tijera/piedra-papel-tijera.component';
-import { AgilidadAritmeticaComponent } from './componentes/agilidad-aritmetica/agilidad-aritmetica.component';
-import { AdivinaElNumeroComponent } from './componentes/adivina-el-numero/adivina-el-numero.component';
-import { InicioComponent } from './componentes/inicio/inicio.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavegacionComponent } from './componentes/navegacion/navegacion.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatGridListModule, MatCardModule, MatSelectModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS} from '@angular/material';
 import { Error404Component } from './componentes/error404/error404.component';
-import { UsuarioBtnComponent } from './componentes/usuario-btn/usuario-btn.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
-import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion.component';
-import { AuthGuard } from './servicios/auth.guard';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenInterceptor } from './interceptores/token.interceptor';
+import { AdivinaElNumeroComponent } from './componentes/adivina-el-numero/adivina-el-numero.component';
+import { AgilidadAritmeticaComponent } from './componentes/agilidad-aritmetica/agilidad-aritmetica.component';
+import { AnagramaComponent } from './componentes/anagrama/anagrama.component';
 import { ColorincheComponent } from './componentes/colorinche/colorinche.component';
-import { ListadoComponent } from './componentes/listado/listado.component';
-import { JugadaService } from './servicios/jugada.service';
+import { PiedraPapelTijeraComponent } from './componentes/piedra-papel-tijera/piedra-papel-tijera.component';
+import { ListaResultadosComponent } from './componentes/lista-resultados/lista-resultados.component';
 import { GanoPipe } from './pipes/gano.pipe';
-
-//#endregion
-
-const appRoutes = [
-  { path:"", component: InicioComponent },
-  { path:"login", component: IniciarSesionComponent },
-  { path:"registrarme", component: RegistrarUsuarioComponent },
-  { path:"tateti", component: TatetiComponent, canActivate: [AuthGuard]},
-  { path:"anagrama", component: AnagramaComponent, canActivate: [AuthGuard]},
-  { path:"piedrapapeltijera", component: PiedraPapelTijeraComponent, canActivate: [AuthGuard]},
-  { path:"agilidad", component: AgilidadAritmeticaComponent, canActivate: [AuthGuard]},
-  { path:"adivina", component: AdivinaElNumeroComponent, canActivate: [AuthGuard]},
-  { path:"colorinche", component: ColorincheComponent, canActivate: [AuthGuard]},
-  { path:"listado", component: ListadoComponent, canActivate: [AuthGuard]},
-  { path:"**", component: Error404Component }
-]
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
-    TatetiComponent,
-    AnagramaComponent,
-    PiedraPapelTijeraComponent,
-    AgilidadAritmeticaComponent,
-    AdivinaElNumeroComponent,
-    InicioComponent,
+    NavegacionComponent,
     Error404Component,
-    UsuarioBtnComponent,
+    LoginComponent,
+    InicioComponent,
     RegistrarUsuarioComponent,
-    IniciarSesionComponent,
+    AdivinaElNumeroComponent,
+    AgilidadAritmeticaComponent,
+    AnagramaComponent,
     ColorincheComponent,
-    ListadoComponent,
+    PiedraPapelTijeraComponent,
+    ListaResultadosComponent,
     GanoPipe
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MenubarModule,
-    ButtonModule,
-    SplitButtonModule,
-    DropdownModule,
-    PanelModule,
-    InputTextModule,
-    TableModule,
-    RouterModule.forRoot(appRoutes)
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatCardModule,
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [
-    MiHttpService,
-    UsuarioService,
-    AuthGuard,
-    JugadaService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, 
+      useValue: {
+        verticalPosition: 'top'
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })
